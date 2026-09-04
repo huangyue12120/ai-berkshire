@@ -1,0 +1,103 @@
+name: Sync fork branch from upstream
+
+on:
+  schedule:
+    - cron: "17 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: upstream-sync-ai-berkshire
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: ${{ github.repository == 'huangyue12120/ai-berkshire' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      FORK_BRANCH: main
+      UPSTREAM_REPOSITORY: xbtlin/ai-berkshire
+      UPSTREAM_BRANCH: main
+    steps:
+      - name: Check out fork branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Verify fork remote and fetch upstream
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test "${GITHUB_REPOSITORY}" = "huangyue12120/ai-berkshire"
+          origin_url="$(git remote get-url origin)"
+          case "${origin_url}" in
+            *github.com/huangyue12120/ai-berkshire|*github.com/huangyue12120/ai-berkshire.git)
+              ;;
+            *)
+              echo "Refusing to sync: origin is not the huangyue12120/ai-berkshire fork."
+              exit 1
+              ;;
+          esac
+
+          if git remote get-url upstream >/dev/null 2>&1; then
+            git remote set-url upstream "https://github.com/${UPSTREAM_REPOSITORY}.git"
+          else
+            git remote add upstream "https://github.com/${UPSTREAM_REPOSITORY}.git"
+          fi
+          git fetch --no-tags --prune upstream "${UPSTREAM_BRANCH}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge upstream without overwriting fork commits
+        shell: bash
+        run: |
+          set -euo pipefail
+          git switch "${FORK_BRANCH}"
+          test "$(git branch --show-current)" = "${FORK_BRANCH}"
+          if git merge --no-edit "upstream/${UPSTREAM_BRANCH}"; then
+            exit 0
+          fi
+
+          conflicts="$(git diff --name-only --diff-filter=U)"
+          test -n "${conflicts}"
+          non_report_conflicts="$(git diff --name-only --diff-filter=U -- . ':(exclude)reports')"
+          if test -n "${non_report_conflicts}"; then
+            echo "Refusing to resolve non-report merge conflicts automatically."
+            printf '%s\n' "${non_report_conflicts}"
+            exit 1
+          fi
+
+          echo "Resolving report-only conflicts by applying the fork exclusion policy."
+          git rm -r --ignore-unmatch reports
+          git commit --no-edit -m "Merge upstream with reports excluded"
+
+      - name: Re-apply fork report exclusion
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f .gitignore || touch .gitignore
+          if ! grep --fixed-strings --line-regexp --quiet "reports/" .gitignore; then
+            {
+              printf "\n"
+              printf "%s\n" "# Fork policy: keep the upstream report archive out of this fork."
+              printf "%s\n" "reports/"
+            } >> .gitignore
+          fi
+
+          git rm -r --ignore-unmatch reports
+          git add .gitignore
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(sync): keep upstream reports out of fork"
+          fi
+
+      - name: Push merged fork branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git push origin "HEAD:${FORK_BRANCH}"
