@@ -36,7 +36,7 @@ jobs:
           test "${GITHUB_REPOSITORY}" = "huangyue12120/ai-berkshire"
           origin_url="$(git remote get-url origin)"
           case "${origin_url}" in
-            *github.com/huangyue12120/ai-berkshire|*github.com/huangyue12120/ai-berkshire.git)
+            https://github.com/huangyue12120/ai-berkshire|https://github.com/huangyue12120/ai-berkshire.git)
               ;;
             *)
               echo "Refusing to sync: origin is not the huangyue12120/ai-berkshire fork."
