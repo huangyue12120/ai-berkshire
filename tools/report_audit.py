@@ -31,6 +31,7 @@ from decimal import Decimal, Context, ROUND_HALF_EVEN
 from random import Random
 
 _CTX = Context(prec=28, rounding=ROUND_HALF_EVEN)
+TOOL_VERSION = '1.1.0'
 
 # ---------------------------------------------------------------------------
 # 数据点提取：从 Markdown 报告中识别财务数字
@@ -415,6 +416,201 @@ def render_verdict(results: list, report_name: str = "") -> dict:
     }
 
 
+def _finite_number(value):
+    """Return a finite float or ``None`` for strict machine validation."""
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return None
+    number = float(value)
+    return number if math.isfinite(number) else None
+
+
+def _valid_source(value):
+    if not isinstance(value, str) or not value.strip():
+        return False
+    return value.strip().lower() not in {'?', 'unknown', 'n/a', 'na', 'none'}
+
+
+def render_strict_verdict(results, report_name: str = "") -> dict:
+    """Render a fail-closed, stdout-safe result for pipeline consumers.
+
+    The legacy ``render_verdict`` function intentionally keeps its human CLI
+    behaviour for existing users.  This machine boundary has stricter rules:
+    every extracted fact must be verified, an empty sample is an error, and a
+    disagreement between two sources is a failed audit rather than a warning
+    that can still pass.
+    """
+    base = {
+        'tool_version': TOOL_VERSION,
+        'report': report_name,
+        'checked_facts': [],
+        'issues': [],
+    }
+    if not isinstance(results, list):
+        base['verdict'] = 'ERROR'
+        base['issues'].append({
+            'code': 'SCHEMA_ERROR',
+            'severity': 'ERROR',
+            'fact_id': None,
+            'message': 'results must be a JSON array',
+        })
+        return base
+    if not results:
+        base['verdict'] = 'ERROR'
+        base['issues'].append({
+            'code': 'NO_FACTS_EXTRACTED',
+            'severity': 'ERROR',
+            'fact_id': None,
+            'message': 'strict audit received an empty fact set',
+        })
+        return base
+
+    seen_ids = set()
+    has_error = False
+    has_failure = False
+    for raw_item in results:
+        if not isinstance(raw_item, dict):
+            has_error = True
+            base['issues'].append({
+                'code': 'SCHEMA_ERROR',
+                'severity': 'ERROR',
+                'fact_id': None,
+                'message': 'each checked fact must be an object',
+            })
+            continue
+
+        fact_id = raw_item.get('id')
+        issue_fact_id = fact_id if isinstance(fact_id, int) and not isinstance(fact_id, bool) else None
+        fact = {
+            'id': fact_id,
+            'label': raw_item.get('label'),
+            'reported_value': raw_item.get('reported_value'),
+            'unit': raw_item.get('unit', ''),
+            'raw_text': raw_item.get('raw_text', ''),
+            'line_number': raw_item.get('line_number', 0),
+            'fetched_value': raw_item.get('fetched_value'),
+            'fetched_source': raw_item.get('fetched_source'),
+            'fetched_value2': raw_item.get('fetched_value2'),
+            'fetched_source2': raw_item.get('fetched_source2'),
+            'fact_status': 'UNVERIFIED',
+            'diff1_pct': None,
+            'diff2_pct': None,
+        }
+        base['checked_facts'].append(fact)
+
+        if not isinstance(fact_id, int) or isinstance(fact_id, bool) or fact_id < 1:
+            has_error = True
+            base['issues'].append({
+                'code': 'SCHEMA_ERROR',
+                'severity': 'ERROR',
+                'fact_id': issue_fact_id,
+                'message': 'fact id must be a positive integer',
+            })
+        elif fact_id in seen_ids:
+            has_error = True
+            base['issues'].append({
+                'code': 'SCHEMA_ERROR',
+                'severity': 'ERROR',
+                'fact_id': fact_id,
+                'message': 'fact ids must be unique',
+            })
+        else:
+            seen_ids.add(fact_id)
+
+        reported = _finite_number(fact['reported_value'])
+        label = fact['label']
+        if reported is None or not isinstance(label, str) or not label.strip():
+            has_error = True
+            base['issues'].append({
+                'code': 'SCHEMA_ERROR',
+                'severity': 'ERROR',
+                'fact_id': issue_fact_id,
+                'message': 'fact label and reported_value must be valid',
+            })
+
+        fetched = _finite_number(fact['fetched_value'])
+        source = fact['fetched_source']
+        if fetched is None or not _valid_source(source):
+            has_error = True
+            base['issues'].append({
+                'code': 'MISSING_VERIFICATION',
+                'severity': 'ERROR',
+                'fact_id': issue_fact_id,
+                'message': 'fact is missing a finite fetched_value or fetched_source',
+            })
+            continue
+
+        second_value_present = fact['fetched_value2'] is not None
+        fetched2 = _finite_number(fact['fetched_value2'])
+        source2 = fact['fetched_source2']
+        if second_value_present and (fetched2 is None or not _valid_source(source2)):
+            has_error = True
+            base['issues'].append({
+                'code': 'SCHEMA_ERROR',
+                'severity': 'ERROR',
+                'fact_id': issue_fact_id,
+                'message': 'second-source value and source must be provided together',
+            })
+            continue
+        if not second_value_present and source2 not in (None, ''):
+            has_error = True
+            base['issues'].append({
+                'code': 'SCHEMA_ERROR',
+                'severity': 'ERROR',
+                'fact_id': issue_fact_id,
+                'message': 'second-source name requires a second-source value',
+            })
+            continue
+
+        if reported is None:
+            continue
+        diff1 = _pct_diff(reported, fetched)
+        diff2 = _pct_diff(reported, fetched2) if second_value_present else None
+        fact['diff1_pct'] = round(diff1 * 100, 2)
+        fact['diff2_pct'] = round(diff2 * 100, 2) if diff2 is not None else None
+        pass1 = diff1 <= _TOLERANCE
+        pass2 = diff2 is None or diff2 <= _TOLERANCE
+        if pass1 and pass2:
+            fact['fact_status'] = 'PASS'
+        else:
+            has_failure = True
+            fact['fact_status'] = 'FAIL'
+            code = 'SOURCE_MISMATCH' if second_value_present and (pass1 != pass2) else 'FACT_MISMATCH'
+            base['issues'].append({
+                'code': code,
+                'severity': 'ERROR',
+                'fact_id': issue_fact_id,
+                'message': 'one or more fetched values exceed the 1% tolerance',
+            })
+
+    if has_error:
+        base['verdict'] = 'ERROR'
+    elif has_failure:
+        base['verdict'] = 'FAIL'
+    else:
+        base['verdict'] = 'PASS'
+    base['total'] = len(results)
+    base['pass_count'] = sum(item['fact_status'] == 'PASS' for item in base['checked_facts'])
+    base['fail_count'] = sum(item['fact_status'] == 'FAIL' for item in base['checked_facts'])
+    base['unverified_count'] = sum(
+        item['fact_status'] == 'UNVERIFIED' for item in base['checked_facts']
+    )
+    return base
+
+
+def _print_machine_error(code: str, message: str) -> None:
+    print(json.dumps({
+        'tool_version': TOOL_VERSION,
+        'verdict': 'ERROR',
+        'checked_facts': [],
+        'issues': [{
+            'code': code,
+            'severity': 'ERROR',
+            'fact_id': None,
+            'message': message,
+        }],
+    }, ensure_ascii=False, separators=(',', ':')))
+
+
 # ---------------------------------------------------------------------------
 # CLI Entry Point
 # ---------------------------------------------------------------------------
@@ -470,12 +666,16 @@ def main():
     ext.add_argument('--ratio', type=float, default=0.15, help='抽样比例，默认 0.15')
     ext.add_argument('--seed', type=int, default=None, help='随机种子（可选，用于复现）')
     ext.add_argument('--dry-run', action='store_true', help='只打印，不输出 JSON')
+    ext.add_argument('--json-only', action='store_true', help='只输出机器可读 JSON')
 
     # verdict
     vrd = sub.add_parser('verdict', help='根据核验结果输出准出/打回判决')
-    vrd.add_argument('--results', required=True, help='JSON 数组，含 fetched_value 等字段')
+    vrd.add_argument('--results', help='JSON 数组，含 fetched_value 等字段')
+    vrd.add_argument('--results-file', help='包含 JSON 数组的 UTF-8 文件')
     vrd.add_argument('--report', default='', help='报告名称（可选，用于显示）')
     vrd.add_argument('--output-json', action='store_true', help='将判决结果以 JSON 输出到 stdout')
+    vrd.add_argument('--strict', action='store_true', help='使用 fail-closed 机器判决')
+    vrd.add_argument('--json-only', action='store_true', help='只输出机器可读 JSON')
 
     args = parser.parse_args()
 
@@ -489,6 +689,19 @@ def main():
 
         all_points = extract_data_points(text)
         sampled = sample_points(all_points, ratio=args.ratio, seed=args.seed)
+
+        if args.json_only:
+            print(json.dumps({
+                'tool_version': TOOL_VERSION,
+                'command': 'extract',
+                'report': args.report,
+                'ratio': args.ratio,
+                'seed': args.seed,
+                'total_count': len(all_points),
+                'sampled_count': len(sampled),
+                'checked_facts': sampled,
+            }, ensure_ascii=False, separators=(',', ':')))
+            return
 
         print('=' * 70)
         print(f'报告数据抽检清单')
@@ -530,13 +743,31 @@ def main():
             print(json.dumps(template, ensure_ascii=False, indent=2))
 
     elif args.command == 'verdict':
+        if bool(args.results) == bool(args.results_file):
+            if args.json_only or args.strict:
+                _print_machine_error('SCHEMA_ERROR', 'provide exactly one of --results or --results-file')
+                sys.exit(2)
+            print('❌ 必须且只能提供 --results 或 --results-file', file=sys.stderr)
+            sys.exit(2)
         try:
-            results = json.loads(args.results)
-        except json.JSONDecodeError as e:
-            print(f'❌ JSON 解析失败: {e}', file=sys.stderr)
-            sys.exit(1)
+            if args.results_file:
+                with open(args.results_file, 'r', encoding='utf-8') as stream:
+                    results = json.load(stream)
+            else:
+                results = json.loads(args.results)
+        except (OSError, json.JSONDecodeError, TypeError) as error:
+            if args.json_only or args.strict:
+                _print_machine_error('TOOL_OUTPUT_ERROR', 'results input could not be parsed')
+                sys.exit(2)
+            print(f'❌ JSON 解析失败: {error}', file=sys.stderr)
+            sys.exit(2)
 
         report_name = args.report or ''
+        if args.strict or args.json_only:
+            outcome = render_strict_verdict(results, report_name=report_name)
+            print(json.dumps(outcome, ensure_ascii=False, separators=(',', ':')))
+            sys.exit({'PASS': 0, 'FAIL': 1, 'ERROR': 2}[outcome['verdict']])
+
         outcome = render_verdict(results, report_name=report_name)
 
         if args.output_json:

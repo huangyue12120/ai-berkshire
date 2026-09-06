@@ -171,5 +171,79 @@ class TestGbkStdoutSurvival(unittest.TestCase):
             sys.stdout = orig
 
 
+class TestStrictMachineContract(unittest.TestCase):
+    """The pipeline-facing CLI must be JSON-only and fail closed."""
+
+    def _run(self, *arguments):
+        return subprocess.run(
+            [sys.executable, os.path.join(_TOOLS, 'report_audit.py'), *arguments],
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+        )
+
+    def test_json_only_extract_has_no_human_prefix(self):
+        import tempfile
+
+        with tempfile.NamedTemporaryFile('w', suffix='.md', delete=False, encoding='utf-8') as fh:
+            fh.write('| Metric | FY25 |\n|---|---|\n| Revenue | 100 |\n')
+            path = fh.name
+        try:
+            proc = self._run('extract', '--report', path, '--seed', '7', '--json-only')
+        finally:
+            os.unlink(path)
+        self.assertEqual(proc.returncode, 0)
+        document = __import__('json').loads(proc.stdout)
+        self.assertEqual(document['command'], 'extract')
+        self.assertIsInstance(document['checked_facts'], list)
+        self.assertNotIn('报告数据抽检清单', proc.stdout)
+
+    def test_empty_results_are_error(self):
+        proc = self._run('verdict', '--results', '[]', '--strict', '--json-only')
+        self.assertEqual(proc.returncode, 2)
+        document = __import__('json').loads(proc.stdout)
+        self.assertEqual(document['verdict'], 'ERROR')
+        self.assertEqual(document['issues'][0]['code'], 'NO_FACTS_EXTRACTED')
+
+    def test_missing_verification_is_error(self):
+        results = '[{"id":1,"label":"Revenue","reported_value":100,"unit":"","raw_text":"100","line_number":1,"fetched_value":null,"fetched_source":""}]'
+        proc = self._run('verdict', '--results', results, '--strict', '--json-only')
+        self.assertEqual(proc.returncode, 2)
+        document = __import__('json').loads(proc.stdout)
+        self.assertEqual(document['verdict'], 'ERROR')
+        self.assertEqual(document['issues'][0]['code'], 'MISSING_VERIFICATION')
+
+    def test_source_warning_is_a_fail_in_strict_mode(self):
+        results = '[{"id":1,"label":"Revenue","reported_value":100,"unit":"","raw_text":"100","line_number":1,"fetched_value":100,"fetched_source":"source-a","fetched_value2":102,"fetched_source2":"source-b"}]'
+        proc = self._run('verdict', '--results', results, '--strict', '--json-only')
+        self.assertEqual(proc.returncode, 1)
+        document = __import__('json').loads(proc.stdout)
+        self.assertEqual(document['verdict'], 'FAIL')
+        self.assertEqual(document['issues'][0]['code'], 'SOURCE_MISMATCH')
+
+    def test_results_file_is_accepted_by_machine_path(self):
+        import tempfile
+
+        results = [{
+            'id': 1,
+            'label': 'Revenue',
+            'reported_value': 100,
+            'unit': '',
+            'raw_text': '100',
+            'line_number': 1,
+            'fetched_value': 100,
+            'fetched_source': 'source-a',
+        }]
+        with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False, encoding='utf-8') as fh:
+            __import__('json').dump(results, fh)
+            path = fh.name
+        try:
+            proc = self._run('verdict', '--results-file', path, '--strict', '--json-only')
+        finally:
+            os.unlink(path)
+        self.assertEqual(proc.returncode, 0)
+        self.assertEqual(__import__('json').loads(proc.stdout)['verdict'], 'PASS')
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
