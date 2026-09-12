@@ -73,7 +73,7 @@ jobs:
           fi
 
           echo "Resolving report-only conflicts by applying the fork exclusion policy."
-          git rm -r --ignore-unmatch reports
+          git rm -r -f --ignore-unmatch reports
           git commit --no-edit -m "Merge upstream with reports excluded"
 
       - name: Re-apply fork report exclusion
