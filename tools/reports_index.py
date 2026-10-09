@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""扫描 reports/ 生成研究索引。
+"""扫描 reports/ 中已纳入 Git 的报告，生成研究索引。
 
 产出两份文件：
   reports/index.json  —— 机器可读清单，供脚本/网页消费
@@ -7,6 +7,7 @@
 
 元数据来源优先级：文件自带 YAML front-matter > 文件名 > 正文 > git 提交时间。
 不修改任何报告文件本身。
+新报告需先 git add；未跟踪、被忽略或仅 intent-to-add 的文件不进入公开索引。
 
 用法：
   python3 tools/reports_index.py            # 生成索引
@@ -45,18 +46,20 @@ def load_config():
         return json.load(f)
 
 
-def git_ignored(paths):
-    """返回被 .gitignore 命中的文件集合，避免把本地私有文件写进公开索引。"""
-    if not paths:
-        return set()
+def git_report_paths():
+    """Git 暂存区里的路径；不把尚未加入提交的本地稿件发布到索引。"""
     try:
-        proc = subprocess.Popen(
-            ["git", "check-ignore", "--stdin"], cwd=ROOT,
-            stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-        out, _ = proc.communicate(("\n".join(paths) + "\n").encode("utf-8"))
-        return set(out.decode("utf-8", "replace").splitlines())
-    except Exception:
-        return set()
+        raw = subprocess.check_output(
+            ["git", "ls-files", "--cached", "-z", "--", "reports/"],
+            cwd=ROOT, stderr=subprocess.DEVNULL)
+        # git add -N 会出现在 ls-files 中，但实际内容不会进入下一次提交。
+        intent = subprocess.check_output(
+            ["git", "diff", "--name-only", "--diff-filter=A", "-z", "--", "reports/"],
+            cwd=ROOT, stderr=subprocess.DEVNULL)
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise RuntimeError("无法读取 Git 暂存区，已停止生成，避免发布未提交的本地文件") from exc
+    paths = {os.fsdecode(p) for p in raw.split(b"\0") if p}
+    return paths - {os.fsdecode(p) for p in intent.split(b"\0") if p}
 
 
 def git_dates():
@@ -64,7 +67,8 @@ def git_dates():
     out = {}
     try:
         raw = subprocess.check_output(
-            ["git", "log", "--pretty=format:__D__%ad", "--date=short", "--name-only"],
+            ["git", "-c", "core.quotePath=false", "log",
+             "--pretty=format:__D__%ad", "--date=short", "--name-only"],
             cwd=ROOT, stderr=subprocess.DEVNULL,
         ).decode("utf-8", "replace")
     except Exception:
@@ -147,6 +151,8 @@ def bucket_of(top, cfg):
 def collect(cfg, gitmap):
     items = []
     unknown_dirs = set()
+    tracked = git_report_paths()
+    excluded = []
     known = (set(cfg["themes"]) | set(cfg["masters"]) | set(cfg["screens"])
              | set(cfg["other"]) | set(cfg.get("companies", [])))
     for dirpath, dirnames, filenames in os.walk(REPORTS):
@@ -156,6 +162,9 @@ def collect(cfg, gitmap):
                 continue
             full = os.path.join(dirpath, fn)
             rel = os.path.relpath(full, ROOT).replace(os.sep, "/")
+            if rel not in tracked:
+                excluded.append(rel)
+                continue
             relr = os.path.relpath(full, REPORTS).replace(os.sep, "/")
             parts = relr.split("/")
             top = parts[0] if len(parts) > 1 else ""
@@ -193,11 +202,8 @@ def collect(cfg, gitmap):
                 ("date_source", dsrc),
                 ("ticker", cfg["tickers"].get(group, "")),
             ]))
-    ignored = git_ignored([i["path"] for i in items])
-    if ignored:
-        items = [i for i in items if i["path"] not in ignored]
     items.sort(key=lambda x: (x["date"], x["path"]), reverse=True)
-    return items, sorted(unknown_dirs), sorted(ignored)
+    return items, sorted(unknown_dirs), sorted(excluded)
 
 
 def display_name(name):
@@ -228,7 +234,7 @@ def render(items, cfg):
     L.append("# 研究报告索引")
     L.append("")
     L.append("> 本文件由 `tools/reports_index.py` 自动生成，请勿手工编辑。")
-    L.append("> 新增报告后运行 `python3 tools/reports_index.py` 重新生成。")
+    L.append("> 新增报告先 `git add`，再运行 `python3 tools/reports_index.py`，将报告与索引一并提交。")
     L.append("")
     L.append("**%d 份报告** · **%d 家公司** · **%d 个专题** · 最近更新 %s" % (
         len(items), len(by_bucket["公司"]), len(by_bucket["专题"]), latest or "—"))
@@ -397,7 +403,11 @@ def update_root_readme(items):
 def main():
     check = "--check" in sys.argv
     cfg = load_config()
-    items, unknown, ignored = collect(cfg, git_dates())
+    try:
+        items, unknown, excluded = collect(cfg, git_dates())
+    except RuntimeError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
 
     index_path = os.path.join(REPORTS, "index.json")
     readme_path = os.path.join(REPORTS, "README.md")
@@ -435,8 +445,8 @@ def main():
     print("已索引 %d 份报告 -> reports/README.md、reports/index.json" % len(items))
     if missing:
         print("  无法确定日期：%d 份" % len(missing))
-    if ignored:
-        print("  已按 .gitignore 排除（不进公开索引）：%d 份" % len(ignored))
+    if excluded:
+        print("  未纳入 Git 的本地报告（含被忽略文件）已排除：%d 份；如需发布，请先 git add 再生成索引" % len(excluded))
     if unknown:
         print("  未在 config.json 的 companies 名单里的新目录（默认按公司处理）：%s" % "、".join(unknown))
     return 0
