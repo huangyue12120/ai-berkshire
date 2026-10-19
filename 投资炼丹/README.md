@@ -8,7 +8,7 @@
 - 正文里的图片存在 `图片/`，不依赖微信图床
 - 跨公司的方法、行业、大师持仓类文章放 `综合/`
 
-共 53 篇，最近更新 2026-10-18。发表版与原稿重合度低的，说明发表前改动较大，原稿仅供对照。
+共 53 篇，最近更新 2026-10-19。发表版与原稿重合度低的，说明发表前改动较大，原稿仅供对照。
 
 ## 按公司
 
@@ -35,7 +35,7 @@
 | 2026-05-17 | [拼多多——一家分歧很大的公司](拼多多/20260517-拼多多-一家分歧很大的公司.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483863&idx=1&sn=196ca593ac26c0ba1fd72bd0300ba66e&chksm=e8d654e1dfa1ddf714dee57cc2ae7e686725dab1516ee17a54456b9fd4fbc0259b989c3be06c) | [01-开篇-一家分歧很大的公司.md](../reports/拼多多/《看懂拼多多》/01-开篇-一家分歧很大的公司.md) |  |
 | 2026-05-18 | [PDD国内站是高效的赚钱机器](拼多多/20260518-PDD国内站是高效的赚钱机器.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483864&idx=1&sn=42b75874cc90570b123ff16606ceaa64&chksm=e8d654eedfa1ddf869ad38cf9427a7a1f86aa5c8bd38d364ec70675d651e55c2338653b8a5de) | [02-国内主战场-算法广告机器.md](../reports/拼多多/《看懂拼多多》/02-国内主战场-算法广告机器.md) | 标题不同，按系列顺序对应 |
 | 2026-05-19 | [Temu：估值 0 到 700 亿美元的政治期权](拼多多/20260519-Temu-估值-0-到-700-亿美元的政治期权.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483866&idx=1&sn=6fe2071b50caa0cdf54513680f30bab2&chksm=e8d654ecdfa1ddfa4b3d76013b83f17decd7d03037926b48169d2fd61a3de4850b49fa0e3b16) | [03-Temu-估值0到700亿美元的政治期权.md](../reports/拼多多/《看懂拼多多》/03-Temu-估值0到700亿美元的政治期权.md) |  |
-| 2026-05-20 | [PDD的现金、管理层与风险](拼多多/20260520-PDD的现金-管理层与风险.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483870&idx=1&sn=6a012dcc1cb583c98436cbd453afd103&chksm=e8d654e8dfa1ddfe50838c3d4f5b564354ae2e2135165f11e290d58d43abe63ec850ad664b99) | [04-三大隐患-现金管理层与风险.md](../reports/拼多多/《看懂拼多多》/04-三大隐患-现金管理层与风险.md) | 发表版与仓库稿件重合度很低，疑似编辑器直接写成；05-价格判断的真问题 未见发表 |
+| 2026-05-20 | [PDD的现金、管理层与风险](拼多多/20260520-PDD的现金-管理层与风险.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483870&idx=1&sn=6a012dcc1cb583c98436cbd453afd103&chksm=e8d654e8dfa1ddfe50838c3d4f5b564354ae2e2135165f11e290d58d43abe63ec850ad664b99) | [04-三大隐患-现金管理层与风险.md](../reports/拼多多/《看懂拼多多》/04-三大隐患-现金管理层与风险.md) | 发表版与仓库内所有稿件重合度都很低，疑似在公众号编辑器直接写成；原稿链接仅供参考 |
 | 2026-05-27 | [拼多多Q1财报：利润去哪了？](拼多多/20260527-拼多多Q1财报-利润去哪了.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483906&idx=1&sn=c9e9858173cf0537608dbcae6e9801a9&chksm=e8d65734dfa1de22088883d696373cc8013b4f84908a6c0082ab7d99c56aad8e805486e051fc) | [拼多多-earnings-2026Q1-公众号.md](../reports/拼多多/拼多多-earnings-2026Q1-公众号.md) |  |
 | 2026-08-25 | [拼多多2026年中报解读](拼多多/20260825-拼多多2026年中报解读.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247484108&idx=1&sn=de00d623ae6a07a53a4c195024d51592&chksm=e8d657fadfa1deec9ffa7c01eb8ef271996c36de30f74473b7dc45b7e0a0f6c2f63307745539) | [拼多多-earnings-2026Q2-深度解读-20260825.md](../reports/拼多多/拼多多-earnings-2026Q2-深度解读-20260825.md) | 按正文比对确认 |
 
@@ -123,7 +123,7 @@
 | 2026-08-16 | [巴菲特、段永平、李录 2026Q2 13F 持仓全解](综合/20260816-巴菲特-段永平-李录-2026Q2-13F-持仓全解.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247484090&idx=1&sn=a9966734b69aa985750953ac0444dafd&chksm=e8d6578cdfa1de9ace4c5d5f9dfd9e28f2de1cb033d04469e0ca7e8e672f9c5b1984c89e5353) | [大师持仓追踪-13F-2026Q2-20260815.md](../reports/大师持仓追踪-13F-2026Q2-20260815.md) |  |
 | 2026-09-19 | [十家中概，七家在历史最低5%：市场押它们越赚越少，对吗](综合/20260919-十家中概-七家在历史最低5%-市场押它们越赚越少-对吗.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247484130&idx=1&sn=8fd251b7c3a5bc6a5cb5f273a14b49df&chksm=e8d657d4dfa1dec2c7b03eda3b817692bb5508df28d04ce0d190361ff0d7f5141160b4f916f0) | [中概十公司估值分位与未来盈利研究-20260912.md](../reports/持仓估值分位与未来盈利-20260912/中概十公司估值分位与未来盈利研究-20260912.md) | 按正文比对更正原稿（重合度0.56） |
 | 2026-09-28 | [除了你自己，没人关心你的成本价](综合/20260928-除了你自己-没人关心你的成本价.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247484155&idx=1&sn=2bab409969247eeaf8adf62a70762992&chksm=e8d657cddfa1dedb8bd3590436e2d4b9e933ab4a29298a27b207462a3e654c028665a7059b45) | [公众号-除了你自己没人关心你的成本价-20260928.md](../reports/公众号-除了你自己没人关心你的成本价-20260928.md) |  |
-| 2026-10-09 | [李录谈AI与投资：技术浪潮中的边界与纪律](综合/20261009-李录谈AI与投资-技术浪潮中的边界与纪律.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247484178&idx=1&sn=1bc7ae0241a435ce4fd42a969b5d8635&chksm=e8d65624dfa1df32815a839fd10126b075842ff306d78eda19ef82c5c54f9e91f1833ca54d30) | [李录-公众号-AI与投资的边界与纪律-20261009.md](../reports/李录/李录-公众号-AI与投资的边界与纪律-20261009.md) | 截图显示"1 week ago"，日期按原稿推定 |
+| 2026-10-09 | [李录谈AI与投资：技术浪潮中的边界与纪律](综合/20261009-李录谈AI与投资-技术浪潮中的边界与纪律.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247484178&idx=1&sn=1bc7ae0241a435ce4fd42a969b5d8635&chksm=e8d65624dfa1df32815a839fd10126b075842ff306d78eda19ef82c5c54f9e91f1833ca54d30) | [李录-公众号-AI与投资的边界与纪律-20261009.md](../reports/李录/李录-公众号-AI与投资的边界与纪律-20261009.md) |  |
 
 ## 按时间
 
@@ -143,8 +143,8 @@
 | 2026-05-16 | 拼多多 | [段永平、李录、丁磊同时重仓拼多多](拼多多/20260516-段永平-李录-丁磊同时重仓拼多多.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483862&idx=1&sn=fa3cf2c535bd87e4e341a70436db424e&chksm=e8d654e0dfa1ddf679a3ebf1c9f13a9d179b4ebbe51d5326747654642fef2dd131de5b5135c1) |
 | 2026-05-17 | 拼多多 | [拼多多——一家分歧很大的公司](拼多多/20260517-拼多多-一家分歧很大的公司.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483863&idx=1&sn=196ca593ac26c0ba1fd72bd0300ba66e&chksm=e8d654e1dfa1ddf714dee57cc2ae7e686725dab1516ee17a54456b9fd4fbc0259b989c3be06c) |
 | 2026-05-18 | 拼多多 | [PDD国内站是高效的赚钱机器](拼多多/20260518-PDD国内站是高效的赚钱机器.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483864&idx=1&sn=42b75874cc90570b123ff16606ceaa64&chksm=e8d654eedfa1ddf869ad38cf9427a7a1f86aa5c8bd38d364ec70675d651e55c2338653b8a5de) |
-| 2026-05-19 | 理想汽车 | [理想能不能成为一家机器人公司？](理想汽车/20260519-理想能不能成为一家机器人公司.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483875&idx=1&sn=7d94f560ed9722bbe1487a0933da816b&chksm=e8d654d5dfa1ddc32aa26c61e9c02b7236795c5cc494ff0cdd2b8cd5f7dbcf357dbe2d3e8709) |
 | 2026-05-19 | 拼多多 | [Temu：估值 0 到 700 亿美元的政治期权](拼多多/20260519-Temu-估值-0-到-700-亿美元的政治期权.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483866&idx=1&sn=6fe2071b50caa0cdf54513680f30bab2&chksm=e8d654ecdfa1ddfa4b3d76013b83f17decd7d03037926b48169d2fd61a3de4850b49fa0e3b16) |
+| 2026-05-19 | 理想汽车 | [理想能不能成为一家机器人公司？](理想汽车/20260519-理想能不能成为一家机器人公司.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483875&idx=1&sn=7d94f560ed9722bbe1487a0933da816b&chksm=e8d654d5dfa1ddc32aa26c61e9c02b7236795c5cc494ff0cdd2b8cd5f7dbcf357dbe2d3e8709) |
 | 2026-05-20 | 拼多多 | [PDD的现金、管理层与风险](拼多多/20260520-PDD的现金-管理层与风险.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483870&idx=1&sn=6a012dcc1cb583c98436cbd453afd103&chksm=e8d654e8dfa1ddfe50838c3d4f5b564354ae2e2135165f11e290d58d43abe63ec850ad664b99) |
 | 2026-05-21 | SpaceX | [1.75万亿的SpaceX：一半是生意，一半是信仰](SpaceX/20260521-1.75万亿的SpaceX-一半是生意-一半是信仰.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483885&idx=1&sn=d5cc9a81af1c518c41dfaaba6283aa2f&chksm=e8d654dbdfa1ddcd6ae38e52774226be7b7a794df7f3a240e1018cda8f3a32817f324ca9f6ab) |
 | 2026-05-22 | 综合 | [富途337万人的股票账户，只能卖不能买了](综合/20260522-富途337万人的股票账户-只能卖不能买了.md) | [原文](https://mp.weixin.qq.com/s?__biz=MzIzNjQ4Nzc2OQ==&mid=2247483890&idx=1&sn=4d9b45496f37e863c3ba79c2d084c110&chksm=e8d654c4dfa1ddd29075a1f029be4162d8cf655f6586c73788a108ac7a2a1f43b63cb712eb9b) |

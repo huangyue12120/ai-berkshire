@@ -30,7 +30,7 @@ H1 = re.compile(r"^#\s+(.+?)\s*$")
 
 # 报告类型：按顺序匹配，先命中先算
 TYPE_RULES = [
-    ("底稿", ["研究底稿", "审计", "核验", "复核", "评审", "check", "verify", "底稿", "对账"]),
+    ("底稿", ["研究底稿", "核验", "评审", "verify", "底稿", "对账"]),  # 审计/复核类成品报告不在此列，中间产物由 is_draft 识别
     ("财报", ["earnings", "财报", "中报", "年报", "季报", "业绩", "电话会", "q1", "q2", "q3", "q4"]),
     ("公众号", ["公众号", "wechat", "推文"]),
     ("深度系列", ["看懂", "深度研究", "deep-dive", "深度投研"]),
@@ -116,6 +116,25 @@ def guess_type(name, relpath):
     return "研究"
 
 
+def is_draft(relr, cfg):
+    """中间产物判定：证据、审计、复算、底稿等不进人读索引。规则见 config.json 的 drafts。"""
+    rules = cfg.get("drafts") or {}
+    parts = relr.split("/")
+    stem = re.sub(r"\.md$", "", parts[-1])
+    if "公众号" in stem:
+        return False
+    dirs = [d.lower() for d in parts[:-1]]
+    draft_dirs = {d.lower() for d in rules.get("dirs", [])}
+    if any(d in draft_dirs for d in dirs):
+        return True
+    for d in parts[:-1]:
+        base = display_name(d)
+        if any(base.endswith(suf) for suf in rules.get("dir_suffixes", [])):
+            return True
+    stem = display_name(stem).lower()
+    return any(re.search(pat, stem) for pat in rules.get("file_patterns", []))
+
+
 def guess_date(meta, filename, parent, head, gitmap, relpath):
     if meta.get("date"):
         d = meta["date"].replace("/", "-")
@@ -190,7 +209,7 @@ def collect(cfg, gitmap):
 
             date, dsrc = guess_date(meta, fn, parts[-2] if len(parts) > 1 else "", head, gitmap, rel)
             series = parts[1] if len(parts) > 2 else ""
-            rtype = meta.get("type") or guess_type(fn, relr)
+            rtype = meta.get("type") or ("底稿" if is_draft(relr, cfg) else guess_type(fn, relr))
             items.append(OrderedDict([
                 ("title", title),
                 ("path", rel),
@@ -224,7 +243,13 @@ def md_link(text, path):
     return "[%s](%s)" % (text, url_path(path.replace("reports/", "", 1)))
 
 
+def published(items):
+    """人读索引只收成品报告；底稿、证据、审计等中间产物只留在 index.json。"""
+    return [i for i in items if i["type"] != "底稿"]
+
+
 def render(items, cfg):
+    items = published(items)
     by_bucket = defaultdict(lambda: defaultdict(list))
     for it in items:
         by_bucket[it["bucket"]][it["group"]].append(it)
@@ -235,6 +260,7 @@ def render(items, cfg):
     L.append("")
     L.append("> 本文件由 `tools/reports_index.py` 自动生成，请勿手工编辑。")
     L.append("> 新增报告先 `git add`，再运行 `python3 tools/reports_index.py`，将报告与索引一并提交。")
+    L.append("> 只收录成品报告；证据、审计、复算、底稿等中间产物不在此列，完整清单见 `index.json`。")
     L.append("")
     L.append("**%d 份报告** · **%d 家公司** · **%d 个专题** · 最近更新 %s" % (
         len(items), len(by_bucket["公司"]), len(by_bucket["专题"]), latest or "—"))
@@ -252,7 +278,7 @@ def render(items, cfg):
     seen = defaultdict(int)
     shown = []
     for it in items:
-        if it["bucket"] == "筛选池" or it["type"] == "底稿":
+        if it["bucket"] == "筛选池":
             continue
         key = it["group"] + "/" + (it["series"] or "")
         if seen[key] >= 3:
@@ -331,6 +357,7 @@ BANNER_END = "<!-- REPORTS-BANNER:END -->"
 
 
 def index_stats(items):
+    items = published(items)
     groups = defaultdict(set)
     for it in items:
         if it["bucket"] != "筛选池":
@@ -356,7 +383,7 @@ def root_banner_block(items):
 def root_readme_block(items):
     """生成根 README 里的『研究索引』入口块。"""
     total, companies, themes, latest = index_stats(items)
-    fresh = [i for i in items if i["bucket"] != "筛选池" and i["type"] != "底稿"][:8]
+    fresh = [i for i in published(items) if i["bucket"] != "筛选池"][:8]
 
     L = [MARK_START, ""]
     L.append("**📊 [全部研究索引 →](reports/README.md)** ｜ %d 份报告 · %d 家公司 · %d 个专题 · 更新至 %s"
@@ -412,7 +439,8 @@ def main():
     index_path = os.path.join(REPORTS, "index.json")
     readme_path = os.path.join(REPORTS, "README.md")
     payload = json.dumps(
-        {"count": len(items), "reports": items},
+        {"count": len(items), "published": len(published(items)),
+         "drafts": len(items) - len(published(items)), "reports": items},
         ensure_ascii=False, indent=2) + "\n"
     readme = render(items, cfg)
     root_old, root_new = update_root_readme(items)
@@ -442,7 +470,8 @@ def main():
         print("已刷新根 README 的研究索引入口块")
 
     missing = [i for i in items if not i["date"]]
-    print("已索引 %d 份报告 -> reports/README.md、reports/index.json" % len(items))
+    print("已索引 %d 份报告 -> reports/README.md、reports/index.json（其中成品 %d 份，底稿等中间产物 %d 份只进 index.json）"
+          % (len(items), len(published(items)), len(items) - len(published(items))))
     if missing:
         print("  无法确定日期：%d 份" % len(missing))
     if excluded:
