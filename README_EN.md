@@ -8,6 +8,8 @@ English | [中文](README.md) | [日本語](README_JA.md)
 >
 > Redefining the depth and efficiency of investment research with AI.
 
+> 📖 **Reading site:** [xbtlin.github.io/ai-berkshire](https://xbtlin.github.io/ai-berkshire/) — all finished reports (in Chinese), organized by company, topic and date; works well on desktop and mobile.
+
 **AI Berkshire** is a collection of investment research skills compatible with both Claude Code and Codex. It systematizes the methodologies of four value investing masters — Buffett, Munger, Duan Yongping, and Li Lu — and delivers professional-grade research through AI Agents.
 
 One person + Claude Code / Codex = an entire investment research team.

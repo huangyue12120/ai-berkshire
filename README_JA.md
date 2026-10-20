@@ -10,6 +10,8 @@
 >
 > AIでリサーチの深度と効率を再定義する。
 
+> 📖 **閲覧サイト：** [xbtlin.github.io/ai-berkshire](https://xbtlin.github.io/ai-berkshire/) — 完成版レポート（中国語）を企業・テーマ・日付別に整理。PC・スマホで読みやすい形式です。
+
 **AI Berkshire** は、Claude CodeおよびCodexに対応した投資リサーチSkillのコレクションです。バフェット・マンガー・段永平（ダン・ヨンピン）・李録（リ・ルー）という4人のバリュー投資の巨人の方法論を体系化し、AIエージェントによりプロフェッショナル水準のリサーチを提供します。
 
 1人 + Claude Code / Codex = 投資リサーチチーム丸ごと。

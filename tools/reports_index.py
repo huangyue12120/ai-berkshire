@@ -372,8 +372,10 @@ def root_banner_block(items):
     return "\n".join([
         BANNER_START,
         "",
-        "> 📊 **日更内容是研究报告，全部在 [研究报告索引](reports/README.md)。** "
-        "%d 份报告 · %d 家公司 · %d 个专题，按公司与专题分组，更新至 %s。"
+        "> 📖 **想读报告，用 [阅读站](https://xbtlin.github.io/ai-berkshire/)**：成品报告按公司、专题、时间整理，"
+        "电脑和手机都好读，可搜索、记住阅读进度。",
+        ">",
+        "> 📊 全部 %d 份报告（含底稿）· %d 家公司 · %d 个专题，GitHub 上的完整目录见 [研究报告索引](reports/README.md)，更新至 %s。"
         % (total, companies, themes, latest),
         "",
         BANNER_END,
