@@ -865,8 +865,6 @@ def build(out_dir):
         '<a class="btn" href="%s">%s</a>' % (u, t) for u, t in [
             ("companies/index.html", "按公司"), ("topics/index.html", "专题与横评"), ("dates/index.html", "按时间"),
             ("types/index.html", "按类型"), ("wechat/index.html", "公众号发表版"), ("search.html", "搜索")])
-    if available("reader/duan-popmart.html"):
-        body += '<p><a class="btn" href="duan-popmart.html">段永平 × 泡泡玛特 · 原帖阅读器</a></p>'
     body += '<div id="recent-read"></div>'
     body += "<h2>最近更新</h2><ul class=\"list\">%s</ul>" % "".join(recent_rows)
     body += "<h2>报告最多的公司</h2><div class=\"grid\">%s</div>" % "".join(
