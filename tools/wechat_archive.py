@@ -252,6 +252,14 @@ def read_existing() -> list[dict]:
         s = f.read_text("utf-8")
         m = re.search(r"> 公众号发表：(\S+)｜发表标题：(.+)", s)
         if not m:
+            front = re.match(r"\A---\s*\n(.*?)\n---\s*\n", s, re.S)
+            metadata = dict(re.findall(r"^(wechat_status|source_report):\s*(.+)$", front.group(1), re.M)) if front else {}
+            title = re.search(r"^#\s+(.+)$", s, re.M)
+            date = re.match(r"(\d{4})(\d{2})(\d{2})-", f.name)
+            if metadata.get("wechat_status") == "待发布" and title and date:
+                rows.append({"date": "-".join(date.groups()), "title": title.group(1).strip(),
+                             "url": "", "src": metadata.get("source_report"), "note": "公众号定稿，待发布",
+                             "company": f.parent.name, "path": f, "key": None, "status": "待发布"})
             continue
         u = re.search(r"> 公众号原文：(\S+)", s)
         src = re.search(r"> 原稿：\[([^\]]+)\]", s)
@@ -268,6 +276,8 @@ def read_existing() -> list[dict]:
 
 
 def write_readme(rows: list[dict]) -> None:
+    ready = [r for r in rows if r.get("status") == "待发布"]
+    rows = [r for r in rows if r.get("status") != "待发布"]
     companies = {r["company"] for r in rows}
     order = [c for c in ORDER if c in companies] + sorted(companies - set(ORDER) - {"综合"}) + (["综合"] if "综合" in companies else [])
     groups = collections.defaultdict(list)
@@ -278,13 +288,18 @@ def write_readme(rows: list[dict]) -> None:
     src = lambda r: f"[{os.path.basename(r['src'])}](../{r['src']})" if r["src"] else "—"
     today = datetime.date.today().isoformat()
     L = ["# 投资炼丹", "",
-         "微信公众号「投资炼丹」合集的全部文章，正文抓取自公众号发表版本，按公司分目录。每篇开头附公众号原文链接，以及对应的研究原稿（在 `reports/` 下，可对比发表前后的改动）。", "",
+         "微信公众号文章归档，按公司分目录。已发表文章抓取自「投资炼丹」合集，附公众号原文及研究原稿；待发布定稿单列，日期为定稿日期。", "",
          f"合集页：[投资炼丹]({ALBUM_PAGE})", "",
-         "- 文件名：`发表日期-发表标题.md`，目录内自然按时间排序",
+         "- 文件名：`日期-标题.md`；已发表文章使用发表日期，待发布定稿使用定稿日期",
          "- 正文里的图片存在 `图片/`，不依赖微信图床",
          "- 跨公司的方法、行业、大师持仓类文章放 `综合/`", "",
-         f"共 {len(rows)} 篇，最近更新 {today}。发表版与原稿重合度低的，说明发表前改动较大，原稿仅供对照。", "",
-         "## 按公司", ""]
+         f"已发表 {len(rows)} 篇，待发布定稿 {len(ready)} 篇，最近更新 {today}。发表版与原稿重合度低的，说明发表前改动较大，原稿仅供对照。", ""]
+    if ready:
+        L += ["## 待发布定稿", "", "| 定稿日期 | 公司 | 标题 | 原稿 | 状态 |", "|---|---|---|---|---|"]
+        for r in sorted(ready, key=lambda r: r["date"], reverse=True):
+            L.append(f"| {r['date']} | {r['company']} | [{esc(r['title'])}]({rel(r)}) | {src(r)} | 待发布 |")
+        L.append("")
+    L += ["## 按公司", ""]
     for c in order:
         L += [f"### {c}（{len(groups[c])}篇）", "", "| 日期 | 发表标题 | 原文 | 原稿 | 备注 |", "|---|---|---|---|---|"]
         for r in groups[c]:

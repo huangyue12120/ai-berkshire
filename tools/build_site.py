@@ -159,8 +159,11 @@ def collect():
         pub = re.search(r"发表标题：(.+)", text)
         if pub:
             title = pub.group(1).strip()
+        front = FRONT.match(text)
+        metadata = dict(re.findall(r"^(wechat_status|source_report):\s*(.+)$", front.group(0), re.M)) if front else {}
         items.append({"title": title, "path": p, "bucket": "公众号发表", "group": group,
-                      "series": "", "type": "公众号", "date": date})
+                      "series": "", "type": "公众号", "date": date,
+                      "status": metadata.get("wechat_status", ""), "source_report": metadata.get("source_report", "")})
     for p in tracked("实盘记录/"):
         if not p.endswith(".md"):
             continue
@@ -239,6 +242,8 @@ def curate(items):
     drafts = set()
     for it in items:
         if it["bucket"] == "公众号发表":
+            if it.get("source_report"):
+                drafts.add(it["source_report"])
             m = re.search(r"原稿：\[[^\]]*\]\(([^)]+)\)", read(it["path"]))
             if m:
                 drafts.add(os.path.normpath(os.path.join(os.path.dirname(it["path"]), m.group(1))))
@@ -526,6 +531,8 @@ def li(it, depth, show_group=True):
         bits.append(it["group"])
     if it["type"]:
         bits.append(it["type"])
+    if it.get("status"):
+        bits.append(it["status"])
     return '<li><a href="%s%s">%s</a><div class="meta">%s</div></li>' % (
         rel, it["url"], html.escape(it["title"]), " · ".join(html.escape(b) for b in bits))
 
@@ -678,7 +685,7 @@ def build(out_dir):
         body, toc = convert(it, by_path, out_dir)
         same = [x for x in (companies.get(it["group"]) or topics.get(it["group"]) or screens.get(it["group"]) or [])
                 if x["id"] != it["id"]][:12]
-        meta = " · ".join(x for x in [it["date"], it["type"]] if x)
+        meta = " · ".join(x for x in [it["date"], it["type"], it.get("status", "")] if x)
         head = "<h1>%s</h1><div class=\"meta\">%s ｜ %s ｜ <a href=\"%s/blob/main/%s\">GitHub 原文</a></div>" % (
             html.escape(it["title"]), group_link(it, 1), html.escape(meta), REPO_URL, quote(it["path"]))
         if toc:
@@ -709,9 +716,9 @@ def build(out_dir):
     def company_page(name, rows):
         groups = defaultdict(list)
         for r in rows:
-            key = "公众号发表" if r["bucket"] == "公众号发表" else r["type"]
+            key = ("公众号定稿" if r.get("status") == "待发布" else "公众号发表") if r["bucket"] == "公众号发表" else r["type"]
             groups[key].append(r)
-        order = ["导读", "公众号发表"] + TYPE_ORDER
+        order = ["导读", "公众号定稿", "公众号发表"] + TYPE_ORDER
         parts = ["<h1>%s</h1><div class=\"meta\">共 %d 篇，最近更新 %s</div>" % (
             html.escape(name), len(rows), rows[0]["date"] if rows and rows[0]["date"] else "—")]
         for k in order + [k for k in groups if k not in order]:
@@ -798,7 +805,12 @@ def build(out_dir):
 
     # 公众号发表
     wrows = sorted((r for rows in wechat.values() for r in rows), key=lambda r: r["date"], reverse=True)
-    body = "<h1>公众号发表版</h1><div class=\"meta\">%d 篇，正文为公众号发表版本</div>%s" % (len(wrows), ul(wrows, 1))
+    ready = [r for r in wrows if r.get("status") == "待发布"]
+    published = [r for r in wrows if r.get("status") != "待发布"]
+    body = "<h1>公众号文章</h1><div class=\"meta\">已发表 %d 篇，待发布定稿 %d 篇</div>" % (len(published), len(ready))
+    if ready:
+        body += "<h2>待发布定稿</h2>" + ul(ready, 1)
+    body += "<h2>已发表</h2>" + ul(published, 1)
     write(out_dir, "wechat/index.html", shell("公众号", body, 1, section="公众号"))
 
     # 搜索
@@ -824,7 +836,7 @@ def build(out_dir):
     with open(qr_dst, "wb") as fh:
         fh.write(open(os.path.join(ROOT, "assets", "wechat-qr.png"), "rb").read()
                  if os.path.isfile(os.path.join(ROOT, "assets", "wechat-qr.png")) else blob("assets/wechat-qr.png"))
-    n_wechat = sum(len(v) for v in wechat.values())
+    n_wechat = len(published)
     write(out_dir, "about.html", shell("关于", about_page(len(items), len(companies), n_wechat,
                                                          items[0]["date"] if items else "—"), 0, section="关于"))
 
@@ -864,7 +876,7 @@ def build(out_dir):
     body += "<div class=\"grid big\">%s</div>" % "".join(
         '<a class="btn" href="%s">%s</a>' % (u, t) for u, t in [
             ("companies/index.html", "按公司"), ("topics/index.html", "专题与横评"), ("dates/index.html", "按时间"),
-            ("types/index.html", "按类型"), ("wechat/index.html", "公众号发表版"), ("search.html", "搜索")])
+            ("types/index.html", "按类型"), ("wechat/index.html", "公众号文章"), ("search.html", "搜索")])
     body += '<div id="recent-read"></div>'
     body += "<h2>最近更新</h2><ul class=\"list\">%s</ul>" % "".join(recent_rows)
     body += "<h2>报告最多的公司</h2><div class=\"grid\">%s</div>" % "".join(
