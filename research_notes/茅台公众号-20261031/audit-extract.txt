@@ -1,13 +1,16 @@
 ======================================================================
 报告数据抽检清单
 文件：reports/茅台/茅台-公众号-20261031.md
-总提取数据点：1  |  抽样比例：15%  |  抽检数量：1
+总提取数据点：23  |  抽样比例：15%  |  抽检数量：4
 随机种子：42（可用于复现同一批样本）
 ======================================================================
 
  ID     行号  数据标签                                          报告值  单位
 ───  ─────  ───────────────────────────────────  ────────────  ──────
-  1    150  贵州茅台重大事项公告                                2026.00
+  1     21  营业收入 · 三季度单季                               402.67
+  4     22  归母净利润 · 同比变化                                 3.78  %
+  9     66  公司主营收入合计 · 前三季度收入                         1308.94
+ 21    105  归母净利润 · 前三季度金额                             644.67
 
 ↑ 请对上述每个数据点，从以下信源取数，填入 fetched_value：
   美股：macrotrends.net（主）+ stockanalysis.com（副）
@@ -19,11 +22,47 @@
 [
   {
     "id": 1,
-    "label": "贵州茅台重大事项公告",
-    "reported_value": 2026.0,
+    "label": "营业收入 · 三季度单季",
+    "reported_value": 402.67,
     "unit": "",
-    "line_number": 150,
-    "raw_text": "8. [贵州茅台重大事项公告：2026年7月飞天产品调价](https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?CompanyCode=1000",
+    "line_number": 21,
+    "raw_text": "| 营业收入 | 402.67 | +3.08% |",
+    "fetched_value": null,
+    "fetched_source": "",
+    "fetched_value2": null,
+    "fetched_source2": ""
+  },
+  {
+    "id": 4,
+    "label": "归母净利润 · 同比变化",
+    "reported_value": 3.78,
+    "unit": "%",
+    "line_number": 22,
+    "raw_text": "| 归母净利润 | 199.51 | +3.78% |",
+    "fetched_value": null,
+    "fetched_source": "",
+    "fetched_value2": null,
+    "fetched_source2": ""
+  },
+  {
+    "id": 9,
+    "label": "公司主营收入合计 · 前三季度收入",
+    "reported_value": 1308.94,
+    "unit": "",
+    "line_number": 66,
+    "raw_text": "| 公司主营收入合计 | 1308.94 | +24.96 |",
+    "fetched_value": null,
+    "fetched_source": "",
+    "fetched_value2": null,
+    "fetched_source2": ""
+  },
+  {
+    "id": 21,
+    "label": "归母净利润 · 前三季度金额",
+    "reported_value": 644.67,
+    "unit": "",
+    "line_number": 105,
+    "raw_text": "| 归母净利润 | 644.67 | -0.25% |",
     "fetched_value": null,
     "fetched_source": "",
     "fetched_value2": null,

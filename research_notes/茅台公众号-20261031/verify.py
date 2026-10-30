@@ -68,7 +68,7 @@ body, references = article.split('**参考资料**', 1)
 assert not re.search(r'https?://|\]\(', body), 'Sources must remain at the end'
 results = []
 for idx, (label, literal, value, places, source, note) in enumerate(claims, 1):
-    lines = [(n, line) for n, line in enumerate(article.splitlines(), 1) if literal in line]
+    lines = [(n, line) for n, line in enumerate(article.splitlines(), 1) if literal in line and not line.startswith('|')]
     assert lines, 'Missing expected claim: ' + literal
     reported = D(re.match(r'[\d.]+', literal).group())
     rounded = value.quantize(D(1).scaleb(-places), rounding=ROUND_HALF_UP)
@@ -82,6 +82,73 @@ for idx, (label, literal, value, places, source, note) in enumerate(claims, 1):
         'qualification': note,
     })
 
+# Verify every numeric table cell, including the sign of each change.
+main26 = b['26M9']['moutai'] + b['26M9']['series']
+main25 = b['25M9']['moutai'] + b['25M9']['series']
+tables = [
+    ('三季度单季', {
+        '营业收入': (f['26Q3']['revenue'] / E, pct(f['26Q3']['revenue'], f['25Q3']['revenue'])),
+        '归母净利润': (f['26Q3']['profit'] / E, pct(f['26Q3']['profit'], f['25Q3']['profit'])),
+        '扣非归母净利润': (f['26Q3']['core'] / E, pct(f['26Q3']['core'], f['25Q3']['core'])),
+        '毛利率': (gross26, gross26 - gross25),
+    }, q3 + ' ; ' + h1),
+    ('前三季度收入', {
+        '公司主营收入合计': (main26, main26 - main25),
+        '直销': (b['26M9']['direct'], b['26M9']['direct'] - b['25M9']['direct']),
+        '其中：i茅台': (b['26M9']['i'], b['26M9']['i'] - b['25M9']['i']),
+        '批发代理': (b['26M9']['wholesale'], b['26M9']['wholesale'] - b['25M9']['wholesale']),
+    }, biz + ' ; ' + oldbiz),
+    ('前三季度金额', {
+        '合并经营现金流': (f['26M9']['cfo'] / E, pct(f['26M9']['cfo'], f['25M9']['cfo'])),
+        '销售商品、提供劳务收现': (f['26M9']['receipts'] / E, pct(f['26M9']['receipts'], f['25M9']['receipts'])),
+        '归母净利润': (f['26M9']['profit'] / E, pct(f['26M9']['profit'], f['25M9']['profit'])),
+    }, q3),
+]
+seen = set()
+active = None
+for lineno, line in enumerate(article.splitlines(), 1):
+    if not line.startswith('|'):
+        active = None
+        continue
+    cells = [cell.strip() for cell in line.strip('|').split('|')]
+    for table_id, (header, expected, source) in enumerate(tables):
+        if len(cells) == 3 and cells[1] == header:
+            active = table_id
+            headers = cells
+            break
+    if active is None:
+        continue
+    header, expected, source = tables[active]
+    if cells[0] not in expected:
+        continue
+    assert (active, cells[0]) not in seen
+    seen.add((active, cells[0]))
+    for column, exact in enumerate(expected[cells[0]], 1):
+        match = re.fullmatch(r'([+-]?\d+\.\d{2})(%|个百分点)?', cells[column])
+        assert match, cells[column]
+        number = D(match.group(1))
+        rounded = exact.quantize(D('.01'), rounding=ROUND_HALF_UP)
+        assert number == rounded, (cells[0], headers[column], number, exact)
+        expected_unit = '亿元' if active == 1 or (column == 1 and cells[0] != '毛利率') else ('个百分点' if cells[0] == '毛利率' and column == 2 else '%')
+        assert (match.group(2) or '亿元') == expected_unit
+        results.append({
+            'id': len(results) + 1,
+            'label': '{} · {} · {}'.format(header, cells[0], headers[column]),
+            'reported_value': float(number), 'unit': expected_unit,
+            'line_number': lineno, 'raw_text': line, 'fetched_value': float(rounded),
+            'exact_calculated_value': str(exact), 'fetched_source': source,
+            'verification_type': 'existing_source_ledger_recalculation',
+            'qualification': '表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验',
+        })
+assert len(seen) == 11 and len(results) == 40
+
+sample = report_audit.sample_points(report_audit.extract_data_points(article), seed=42)
+for point in sample:
+    # Reference-title dates are not financial metrics.
+    if point['raw_text'].startswith('8. [贵州茅台重大事项公告'):
+        continue
+    assert any(point['line_number'] == result['line_number'] and point['reported_value'] == result['reported_value'] for result in results), point
+
 capture = io.StringIO()
 with contextlib.redirect_stdout(capture):
     financial_rigor.verify_valuation(price, eps=eps, dividend=eps * D('.75'))
@@ -92,6 +159,6 @@ clean = '\n'.join(line.rstrip() for line in clean.splitlines()) + '\n'
 (OUT / 'audit-verdict.txt').write_text(clean)
 extract = subprocess.run([sys.executable, str(ROOT / 'tools/report_audit.py'), 'extract', '--report', str(REPORT.relative_to(ROOT)), '--seed', '42'], cwd=str(ROOT), text=True, stdout=subprocess.PIPE, check=True)
 (OUT / 'audit-extract.txt').write_text('\n'.join(line.rstrip() for line in extract.stdout.splitlines()) + '\n')
-assert verdict['verdict'] == 'PASS' and verdict['total'] == len(claims)
-print('PASS: {} financial claims match source-ledger arithmetic and displayed rounding.'.format(len(claims)))
+assert verdict['verdict'] == 'PASS' and verdict['total'] == len(results)
+print('PASS: {} prose claims and {} table cells match source-ledger arithmetic and displayed rounding.'.format(len(claims), len(results) - len(claims)))
 print('All source links are in the final reference list.')
