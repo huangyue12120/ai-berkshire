@@ -210,22 +210,35 @@
   {
     "id": 17,
     "label": "假设股息率",
-    "reported_value": 3.5,
+    "reported_value": 3.54,
     "unit": "%",
-    "line_number": 143,
-    "raw_text": "假设未来维持75%的派息比例，并保持当前盈利水平，对应股息率约3.5%。这只是用于理解价格的测算。现有分红规划覆盖到2026年，之后的比例还需要新公告确认。",
-    "fetched_value": 3.5,
+    "line_number": 150,
+    "raw_text": "实际分红来自2025年中期和年度末期两次派息；测算则使用本次财报更新后的最近十二个月盈利。3.73%是历史实际派息口径，3.54%是情景测算，不能混用。",
+    "fetched_value": 3.54,
     "exact_calculated_value": "3.541053117444498974544826963",
     "fetched_source": "https://www.moutai.com.cn/mtgf/attachDir/2024/11/2024112812512867790.pdf ; https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "未来75%分红是测算假设，不是已宣告股息"
+    "qualification": "未来按75%分红是测算假设，不是已宣告股息"
   },
   {
     "id": 18,
+    "label": "过去12个月实际派息股息率",
+    "reported_value": 3.73,
+    "unit": "%",
+    "line_number": 150,
+    "raw_text": "实际分红来自2025年中期和年度末期两次派息；测算则使用本次财报更新后的最近十二个月盈利。3.73%是历史实际派息口径，3.54%是情景测算，不能混用。",
+    "fetched_value": 3.73,
+    "exact_calculated_value": "3.734149635429761862002083259",
+    "fetched_source": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11694571&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12402962&stockid=600519",
+    "verification_type": "existing_source_ledger_recalculation",
+    "qualification": "含税已实施派息，与同日行情TTM口径核对"
+  },
+  {
+    "id": 19,
     "label": "全年持平所需Q4归母利润同比",
     "reported_value": 0.9,
     "unit": "%",
-    "line_number": 155,
+    "line_number": 164,
     "raw_text": "还有一个值得记住的门槛：要让全年归母净利润与去年持平，四季度只需同比增长约0.9%。因此，即使年报最终显示利润增速回到正数，也不能单凭这一点确认公司重回较快增长。",
     "fetched_value": 0.9,
     "exact_calculated_value": "0.900456933592566254704908100",
@@ -234,7 +247,7 @@
     "qualification": "算术门槛，不是预测"
   },
   {
-    "id": 19,
+    "id": 20,
     "label": "三季度单季 · 营业收入 · 三季度单季",
     "reported_value": 402.67,
     "unit": "亿元",
@@ -244,10 +257,10 @@
     "exact_calculated_value": "402.6748268456",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 20,
+    "id": 21,
     "label": "三季度单季 · 营业收入 · 同比变化",
     "reported_value": 3.08,
     "unit": "%",
@@ -257,10 +270,10 @@
     "exact_calculated_value": "3.079865262784477830446957800",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 21,
+    "id": 22,
     "label": "三季度单季 · 归母净利润 · 三季度单季",
     "reported_value": 199.51,
     "unit": "亿元",
@@ -270,10 +283,10 @@
     "exact_calculated_value": "199.5054556009",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 22,
+    "id": 23,
     "label": "三季度单季 · 归母净利润 · 同比变化",
     "reported_value": 3.78,
     "unit": "%",
@@ -283,10 +296,10 @@
     "exact_calculated_value": "3.780531087717053375033892300",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 23,
+    "id": 24,
     "label": "三季度单季 · 扣非归母净利润 · 三季度单季",
     "reported_value": 198.61,
     "unit": "亿元",
@@ -296,10 +309,10 @@
     "exact_calculated_value": "198.6061695317",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 24,
+    "id": 25,
     "label": "三季度单季 · 扣非归母净利润 · 同比变化",
     "reported_value": 2.96,
     "unit": "%",
@@ -309,10 +322,10 @@
     "exact_calculated_value": "2.956128788848441795384363000",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 25,
+    "id": 26,
     "label": "三季度单季 · 毛利率 · 三季度单季",
     "reported_value": 89.64,
     "unit": "%",
@@ -322,10 +335,10 @@
     "exact_calculated_value": "89.63939116904450050586467596",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 26,
+    "id": 27,
     "label": "三季度单季 · 毛利率 · 同比变化",
     "reported_value": -1.64,
     "unit": "个百分点",
@@ -335,10 +348,10 @@
     "exact_calculated_value": "-1.64043120764498045197123806",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 27,
+    "id": 28,
     "label": "前三季度收入 · 公司主营收入合计 · 前三季度收入",
     "reported_value": 1308.94,
     "unit": "亿元",
@@ -348,10 +361,10 @@
     "exact_calculated_value": "1308.939950",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 28,
+    "id": 29,
     "label": "前三季度收入 · 公司主营收入合计 · 同比增减额",
     "reported_value": 24.96,
     "unit": "亿元",
@@ -361,10 +374,10 @@
     "exact_calculated_value": "24.961376",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 29,
+    "id": 30,
     "label": "前三季度收入 · 直销 · 前三季度收入",
     "reported_value": 737.74,
     "unit": "亿元",
@@ -374,10 +387,10 @@
     "exact_calculated_value": "737.73593",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 30,
+    "id": 31,
     "label": "前三季度收入 · 直销 · 同比增减额",
     "reported_value": 182.18,
     "unit": "亿元",
@@ -387,10 +400,10 @@
     "exact_calculated_value": "182.181991",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 31,
+    "id": 32,
     "label": "前三季度收入 · 其中：i茅台 · 前三季度收入",
     "reported_value": 585.62,
     "unit": "亿元",
@@ -400,10 +413,10 @@
     "exact_calculated_value": "585.62306",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 32,
+    "id": 33,
     "label": "前三季度收入 · 其中：i茅台 · 同比增减额",
     "reported_value": 458.71,
     "unit": "亿元",
@@ -413,10 +426,10 @@
     "exact_calculated_value": "458.70566",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 33,
+    "id": 34,
     "label": "前三季度收入 · 批发代理 · 前三季度收入",
     "reported_value": 571.2,
     "unit": "亿元",
@@ -426,10 +439,10 @@
     "exact_calculated_value": "571.20402",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 34,
+    "id": 35,
     "label": "前三季度收入 · 批发代理 · 同比增减额",
     "reported_value": -157.22,
     "unit": "亿元",
@@ -439,10 +452,10 @@
     "exact_calculated_value": "-157.220615",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 35,
+    "id": 36,
     "label": "前三季度金额 · 合并经营现金流 · 前三季度金额",
     "reported_value": 840.59,
     "unit": "亿元",
@@ -452,10 +465,10 @@
     "exact_calculated_value": "840.5897983229",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 36,
+    "id": 37,
     "label": "前三季度金额 · 合并经营现金流 · 同比变化",
     "reported_value": 120.07,
     "unit": "%",
@@ -465,10 +478,10 @@
     "exact_calculated_value": "120.0681080332072005840676915",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 37,
+    "id": 38,
     "label": "前三季度金额 · 销售商品、提供劳务收现 · 前三季度金额",
     "reported_value": 1435.23,
     "unit": "亿元",
@@ -478,10 +491,10 @@
     "exact_calculated_value": "1435.2275251923",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 38,
+    "id": 39,
     "label": "前三季度金额 · 销售商品、提供劳务收现 · 同比变化",
     "reported_value": 3.41,
     "unit": "%",
@@ -491,10 +504,10 @@
     "exact_calculated_value": "3.408728220910205625651550600",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 39,
+    "id": 40,
     "label": "前三季度金额 · 归母净利润 · 前三季度金额",
     "reported_value": 644.67,
     "unit": "亿元",
@@ -504,10 +517,10 @@
     "exact_calculated_value": "644.6742598195",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   },
   {
-    "id": 40,
+    "id": 41,
     "label": "前三季度金额 · 归母净利润 · 同比变化",
     "reported_value": -0.25,
     "unit": "%",
@@ -517,6 +530,58 @@
     "exact_calculated_value": "-0.2465244474389940508980170000",
     "fetched_source": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519",
     "verification_type": "existing_source_ledger_recalculation",
-    "qualification": "表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验"
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
+  },
+  {
+    "id": 42,
+    "label": "每股股息 · 过去12个月实际派发 · 每股股息",
+    "reported_value": 51.98,
+    "unit": "元",
+    "line_number": 147,
+    "raw_text": "| 过去12个月实际派发 | 51.98元 | 3.73% |",
+    "fetched_value": 51.98,
+    "exact_calculated_value": "51.98123",
+    "fetched_source": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11694571&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12402962&stockid=600519 ; https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://www.moutai.com.cn/mtgf/attachDir/2024/11/2024112812512867790.pdf",
+    "verification_type": "existing_source_ledger_recalculation",
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
+  },
+  {
+    "id": 43,
+    "label": "每股股息 · 过去12个月实际派发 · 股息率",
+    "reported_value": 3.73,
+    "unit": "%",
+    "line_number": 147,
+    "raw_text": "| 过去12个月实际派发 | 51.98元 | 3.73% |",
+    "fetched_value": 3.73,
+    "exact_calculated_value": "3.734149635429761862002083259",
+    "fetched_source": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11694571&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12402962&stockid=600519 ; https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://www.moutai.com.cn/mtgf/attachDir/2024/11/2024112812512867790.pdf",
+    "verification_type": "existing_source_ledger_recalculation",
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
+  },
+  {
+    "id": 44,
+    "label": "每股股息 · 盈利不变、按75%派息测算 · 每股股息",
+    "reported_value": 49.29,
+    "unit": "元",
+    "line_number": 148,
+    "raw_text": "| 盈利不变、按75%派息测算 | 49.29元 | 3.54% |",
+    "fetched_value": 49.29,
+    "exact_calculated_value": "49.29322992138614797515126374",
+    "fetched_source": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11694571&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12402962&stockid=600519 ; https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://www.moutai.com.cn/mtgf/attachDir/2024/11/2024112812512867790.pdf",
+    "verification_type": "existing_source_ledger_recalculation",
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
+  },
+  {
+    "id": 45,
+    "label": "每股股息 · 盈利不变、按75%派息测算 · 股息率",
+    "reported_value": 3.54,
+    "unit": "%",
+    "line_number": 148,
+    "raw_text": "| 盈利不变、按75%派息测算 | 49.29元 | 3.54% |",
+    "fetched_value": 3.54,
+    "exact_calculated_value": "3.541053117444498974544826963",
+    "fetched_source": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11694571&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12402962&stockid=600519 ; https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://www.moutai.com.cn/mtgf/attachDir/2024/11/2024112812512867790.pdf",
+    "verification_type": "existing_source_ledger_recalculation",
+    "qualification": "表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列"
   }
 ]

@@ -40,6 +40,11 @@ finance_share = (fund26 - fund25) / (f['26M9']['cfo'] - f['25M9']['cfo']) * 100
 ttm = f['25FY']['profit'] + f['26M9']['profit'] - f['25M9']['profit']
 eps = ttm / D('1250081601')
 price = D('1392.05')
+dividend_data = json.loads((OUT / 'dividend-check.json').read_text())
+assert D(dividend_data['price_cny']) == price
+paid_dividend = sum(D(row['per_share_cny']) for row in dividend_data['payouts'])
+dividend_source = ' ; '.join(row['primary_url'] for row in dividend_data['payouts'])
+model_dividend = eps * D('.75')
 
 # label, literal, exact value, displayed decimals, source, qualification
 claims = [
@@ -59,7 +64,8 @@ claims = [
     ('合同负债较年初降幅', '74%', -pct(D('2084485744.75'), D('8006739780.94')), 0, q3, '年初对比，不是同比订单降幅'),
     ('10月30日收盘价', '1392.05元', price, 2, quote, '财报披露前收盘价；引用此前研究已核行情'),
     ('更新财报后的TTM市盈率', '21.2倍', price / eps, 1, q3 + ' ; ' + fy + ' ; ' + quote, '期末股数归一EPS'),
-    ('假设股息率', '3.5%', eps * D('.75') / price * 100, 1, policy + ' ; ' + q3, '未来75%分红是测算假设，不是已宣告股息'),
+    ('假设股息率', '3.54%', model_dividend / price * 100, 2, policy + ' ; ' + q3, '未来按75%分红是测算假设，不是已宣告股息'),
+    ('过去12个月实际派息股息率', '3.73%', paid_dividend / price * 100, 2, dividend_source, '含税已实施派息，与同日行情TTM口径核对'),
     ('全年持平所需Q4归母利润同比', '0.9%', pct(f['25FY']['profit'] - f['26M9']['profit'], f['25Q4']['profit']), 1, fy + ' ; ' + q3, '算术门槛，不是预测'),
 ]
 
@@ -103,6 +109,10 @@ tables = [
         '销售商品、提供劳务收现': (f['26M9']['receipts'] / E, pct(f['26M9']['receipts'], f['25M9']['receipts'])),
         '归母净利润': (f['26M9']['profit'] / E, pct(f['26M9']['profit'], f['25M9']['profit'])),
     }, q3),
+    ('每股股息', {
+        '过去12个月实际派发': (paid_dividend, paid_dividend / price * 100),
+        '盈利不变、按75%派息测算': (model_dividend, model_dividend / price * 100),
+    }, dividend_source + ' ; ' + q3 + ' ; ' + policy),
 ]
 seen = set()
 active = None
@@ -124,12 +134,15 @@ for lineno, line in enumerate(article.splitlines(), 1):
     assert (active, cells[0]) not in seen
     seen.add((active, cells[0]))
     for column, exact in enumerate(expected[cells[0]], 1):
-        match = re.fullmatch(r'([+-]?\d+\.\d{2})(%|个百分点)?', cells[column])
+        match = re.fullmatch(r'([+-]?\d+\.\d{2})(%|个百分点|元)?', cells[column])
         assert match, cells[column]
         number = D(match.group(1))
         rounded = exact.quantize(D('.01'), rounding=ROUND_HALF_UP)
         assert number == rounded, (cells[0], headers[column], number, exact)
-        expected_unit = '亿元' if active == 1 or (column == 1 and cells[0] != '毛利率') else ('个百分点' if cells[0] == '毛利率' and column == 2 else '%')
+        if active == 3:
+            expected_unit = '元' if column == 1 else '%'
+        else:
+            expected_unit = '亿元' if active == 1 or (column == 1 and cells[0] != '毛利率') else ('个百分点' if cells[0] == '毛利率' and column == 2 else '%')
         assert (match.group(2) or '亿元') == expected_unit
         results.append({
             'id': len(results) + 1,
@@ -138,20 +151,31 @@ for lineno, line in enumerate(article.splitlines(), 1):
             'line_number': lineno, 'raw_text': line, 'fetched_value': float(rounded),
             'exact_calculated_value': str(exact), 'fetched_source': source,
             'verification_type': 'existing_source_ledger_recalculation',
-            'qualification': '表格逐格复核；i茅台已包含在直销中；金额与百分点分别校验',
+            'qualification': '表格逐格复核；区分元与亿元、百分比与百分点；实际派息与假设派息分列',
         })
-assert len(seen) == 11 and len(results) == 40
+assert len(seen) == 13 and len(results) == 45
 
 sample = report_audit.sample_points(report_audit.extract_data_points(article), seed=42)
+reference_line = article.splitlines().index('**参考资料**') + 1
 for point in sample:
-    # Reference-title dates are not financial metrics.
-    if point['raw_text'].startswith('8. [贵州茅台重大事项公告'):
+    # Reference dates are not financial metrics; actual dividend amounts in
+    # references are separately checked against the declaration ledger below.
+    if point['line_number'] > reference_line:
         continue
     assert any(point['line_number'] == result['line_number'] and point['reported_value'] == result['reported_value'] for result in results), point
+for row in dividend_data['payouts']:
+    assert row['per_share_cny'] + '元' in references
+    assert D(row['per_share_cny']) == D(row['secondary_per_share_cny'])
+assert paid_dividend.quantize(D('.01')) == D(dividend_data['quote_cross_check']['dividend_per_share_ttm_cny'])
+assert (paid_dividend / price * 100).quantize(D('.01')) == D(dividend_data['quote_cross_check']['dividend_yield_ttm_percent'])
 
 capture = io.StringIO()
 with contextlib.redirect_stdout(capture):
-    financial_rigor.verify_valuation(price, eps=eps, dividend=eps * D('.75'))
+    print('Historical trailing dividend yield:')
+    financial_rigor.verify_valuation(price, eps=eps, dividend=paid_dividend)
+    financial_rigor.cross_validate('TTM dividend yield', {'paid cash dividends / closing price': paid_dividend / price * 100, 'Futu TTM': D(dividend_data['quote_cross_check']['dividend_yield_ttm_percent'])}, unit='%', tolerance_pct=1)
+    print('Hypothetical yield at 75% payout:')
+    financial_rigor.verify_valuation(price, eps=eps, dividend=model_dividend)
     verdict = report_audit.render_verdict(results, report_name=str(REPORT.relative_to(ROOT)))
 clean = re.sub(r'\x1b\[[0-9;]*m', '', capture.getvalue())
 clean = '\n'.join(line.rstrip() for line in clean.splitlines()) + '\n'
