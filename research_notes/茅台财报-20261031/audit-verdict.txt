@@ -1,0 +1,31 @@
+======================================================================
+报告数据抽检 — 准出/打回判决
+报告：贵州茅台2026Q3财报研究报告-最终推送版
+======================================================================
+
+  ✅ 通过 [ 4] 营业总收入，含财务公司利息 · 第三季度单季               报告:       410.06
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 minus https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: 410.06 (偏差 0.00%)  |  https://www.thepaper.cn/newsDetail_forward_34370441: 410.06 (偏差 0.00%)
+  ✅ 通过 [ 5] 营业利润 · 前三季度                          报告:       889.80
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 889.80 (偏差 0.00%)
+  ✅ 通过 [12] 基本/稀释每股收益，元 · 第三季度单季                 报告:        15.96
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 15.96 (偏差 0.00%)
+  ✅ 通过 [14] 营业收入口径毛利率 · 第三季度单季                   报告:        89.64 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 minus https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: 89.64 (偏差 0.00%)  |  https://www.hstong.com/news/detail/26103020333539148: 89.64 (偏差 0.00%)
+  ✅ 通过 [15] 归母净利率 · 前三季度                         报告:        49.22 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 49.22 (偏差 0.01%)
+  ✅ 通过 [18] 合并经营现金流 · 第三季度单季                     报告:       133.68
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 minus https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: 133.68 (偏差 0.00%)
+  ✅ 通过 [29] 国内 · 单季同比                            报告:         4.17 %
+                                                    Company 2026/2025 Q3 and H1 business data; see report citations: 4.17 (偏差 0.08%)
+  ✅ 通过 [32] 国外 · 单季同比                            报告:       -39.51 %
+                                                    Company 2026/2025 Q3 and H1 business data; see report citations: -39.51 (偏差 0.01%)
+  ✅ 通过 [36] 批发代理 · 前三季度收入                        报告:       571.20
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 571.20 (偏差 0.00%)  |  https://api3.cls.cn/share/article/2520944?app=&os=CailianpressWeb&sv=864: 571.20 (偏差 0.00%)
+  ✅ 通过 [55] 货币资金 · 9月末                           报告:       499.27
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 499.27 (偏差 0.00%)
+
+----------------------------------------------------------------------
+  抽检总数: 10  |  通过: 10  |  警告: 0  |  不通过: 0
+
+【准出】所有抽检数据通过，报告可发布。
+======================================================================
