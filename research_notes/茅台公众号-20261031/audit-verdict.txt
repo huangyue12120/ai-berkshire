@@ -1,0 +1,135 @@
+Historical trailing dividend yield:
+============================================================
+估值指标验算 (Valuation Verification)
+============================================================
+  当前股价: 1392.05
+
+  PE (TTM):  1392.05 / 65.72430656184819730020168499 = 21.18x
+  盈利收益率: 4.72%
+  股息率:    51.98123 / 1392.05 = 3.73%
+
+  ✅ 以上指标均使用精确十进制计算, 无浮点误差
+============================================================
+交叉验证: TTM dividend yield (Cross-Validation)
+============================================================
+  数据来源数: 2
+  参考中位数: 3.73 %
+
+  ✅ paid cash dividends / closing price: 3.73 %  (偏差 0.06%)
+  ✅ Futu TTM            : 3.73 %  (偏差 0.06%)
+
+  ✅ 所有来源偏差 ≤ 1%, 数据一致
+
+  共识值 (加权中位数): 3.73 %
+Hypothetical yield at 75% payout:
+============================================================
+估值指标验算 (Valuation Verification)
+============================================================
+  当前股价: 1392.05
+
+  PE (TTM):  1392.05 / 65.72430656184819730020168499 = 21.18x
+  盈利收益率: 4.72%
+  股息率:    49.29322992138614797515126374 / 1392.05 = 3.54%
+
+  ✅ 以上指标均使用精确十进制计算, 无浮点误差
+======================================================================
+报告数据抽检 — 准出/打回判决
+报告：reports/茅台/茅台-公众号-20261031.md
+======================================================================
+
+  ✅ 通过 [ 1] Q3营业收入同比                             报告:         3.08 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 3.08 (偏差 0.00%)
+  ✅ 通过 [ 2] Q3归母净利润同比                            报告:         3.78 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 3.78 (偏差 0.00%)
+  ✅ 通过 [ 3] Q3茅台酒收入同比                            报告:         0.79 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 0.79 (偏差 0.00%)
+  ✅ 通过 [ 4] 系列酒对Q3公司收入增量贡献                       报告:        76.00 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 76.00 (偏差 0.00%)
+  ✅ 通过 [ 5] Q3公司营业收入同比增量                         报告:        12.00 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 12.00 (偏差 0.00%)
+  ✅ 通过 [ 6] Q3系列酒收入同比增量                          报告:         9.00 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 9.00 (偏差 0.00%)
+  ✅ 通过 [ 7] Q3毛利率同比下降                            报告:         1.64 个百分点
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: 1.64 (偏差 0.00%)
+  ✅ 通过 [ 8] 9M i茅台收入                             报告:       586.00 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519: 586.00 (偏差 0.00%)
+  ✅ 通过 [ 9] 9M i茅台收入同比增量                         报告:       459.00 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 459.00 (偏差 0.00%)
+  ✅ 通过 [10] 9M主营业务收入同比增量                         报告:        25.00 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 25.00 (偏差 0.00%)
+  ✅ 通过 [11] 9M合并经营现金流同比                          报告:       120.00 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 120.00 (偏差 0.00%)
+  ✅ 通过 [12] 四类金融本金对CFO同比增量贡献                     报告:        92.00 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 92.00 (偏差 0.00%)
+  ✅ 通过 [13] 9M销售商品提供劳务收现同比                       报告:         3.41 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 3.41 (偏差 0.00%)
+  ✅ 通过 [14] 合同负债较年初降幅                            报告:        74.00 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 74.00 (偏差 0.00%)
+  ✅ 通过 [15] 10月30日收盘价                            报告:      1392.05 元
+                                                    https://cn.investing.com/equities/moutai-historical-data: 1392.05 (偏差 0.00%)
+  ✅ 通过 [16] 更新财报后的TTM市盈率                         报告:        21.20 倍
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-17/600519_20260417_9QS4.pdf ; https://cn.investing.com/equities/moutai-historical-data: 21.20 (偏差 0.00%)
+  ✅ 通过 [17] 假设股息率                                报告:         3.54 %
+                                                    https://www.moutai.com.cn/mtgf/attachDir/2024/11/2024112812512867790.pdf ; https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 3.54 (偏差 0.00%)
+  ✅ 通过 [18] 过去12个月实际派息股息率                        报告:         3.73 %
+                                                    https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11694571&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12402962&stockid=600519: 3.73 (偏差 0.00%)
+  ✅ 通过 [19] 全年持平所需Q4归母利润同比                       报告:         0.90 %
+                                                    https://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-17/600519_20260417_9QS4.pdf ; https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 0.90 (偏差 0.00%)
+  ✅ 通过 [20] 三季度单季 · 营业收入 · 三季度单季                 报告:       402.67 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: 402.67 (偏差 0.00%)
+  ✅ 通过 [21] 三季度单季 · 营业收入 · 同比变化                  报告:         3.08 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: 3.08 (偏差 0.00%)
+  ✅ 通过 [22] 三季度单季 · 归母净利润 · 三季度单季                报告:       199.51 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: 199.51 (偏差 0.00%)
+  ✅ 通过 [23] 三季度单季 · 归母净利润 · 同比变化                 报告:         3.78 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: 3.78 (偏差 0.00%)
+  ✅ 通过 [24] 三季度单季 · 扣非归母净利润 · 三季度单季              报告:       198.61 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: 198.61 (偏差 0.00%)
+  ✅ 通过 [25] 三季度单季 · 扣非归母净利润 · 同比变化               报告:         2.96 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: 2.96 (偏差 0.00%)
+  ✅ 通过 [26] 三季度单季 · 毛利率 · 三季度单季                  报告:        89.64 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: 89.64 (偏差 0.00%)
+  ✅ 通过 [27] 三季度单季 · 毛利率 · 同比变化                   报告:        -1.64 个百分点
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://static.cninfo.com.cn/finalpage/2026-08-15/1225475868.PDF: -1.64 (偏差 0.00%)
+  ✅ 通过 [28] 前三季度收入 · 公司主营收入合计 · 前三季度收入           报告:      1308.94 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 1308.94 (偏差 0.00%)
+  ✅ 通过 [29] 前三季度收入 · 公司主营收入合计 · 同比增减额            报告:        24.96 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 24.96 (偏差 0.00%)
+  ✅ 通过 [30] 前三季度收入 · 直销 · 前三季度收入                 报告:       737.74 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 737.74 (偏差 0.00%)
+  ✅ 通过 [31] 前三季度收入 · 直销 · 同比增减额                  报告:       182.18 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 182.18 (偏差 0.00%)
+  ✅ 通过 [32] 前三季度收入 · 其中：i茅台 · 前三季度收入             报告:       585.62 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 585.62 (偏差 0.00%)
+  ✅ 通过 [33] 前三季度收入 · 其中：i茅台 · 同比增减额              报告:       458.71 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 458.71 (偏差 0.00%)
+  ✅ 通过 [34] 前三季度收入 · 批发代理 · 前三季度收入               报告:       571.20 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: 571.20 (偏差 0.00%)
+  ✅ 通过 [35] 前三季度收入 · 批发代理 · 同比增减额                报告:      -157.22 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685264&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11561250&stockid=600519: -157.22 (偏差 0.00%)
+  ✅ 通过 [36] 前三季度金额 · 合并经营现金流 · 前三季度金额            报告:       840.59 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 840.59 (偏差 0.00%)
+  ✅ 通过 [37] 前三季度金额 · 合并经营现金流 · 同比变化              报告:       120.07 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 120.07 (偏差 0.00%)
+  ✅ 通过 [38] 前三季度金额 · 销售商品、提供劳务收现 · 前三季度金额        报告:      1435.23 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 1435.23 (偏差 0.00%)
+  ✅ 通过 [39] 前三季度金额 · 销售商品、提供劳务收现 · 同比变化          报告:         3.41 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 3.41 (偏差 0.00%)
+  ✅ 通过 [40] 前三季度金额 · 归母净利润 · 前三季度金额              报告:       644.67 亿元
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: 644.67 (偏差 0.00%)
+  ✅ 通过 [41] 前三季度金额 · 归母净利润 · 同比变化                报告:        -0.25 %
+                                                    https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519: -0.25 (偏差 0.00%)
+  ✅ 通过 [42] 每股股息 · 过去12个月实际派发 · 每股股息             报告:        51.98 元
+                                                    https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11694571&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12402962&stockid=600519 ; https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://www.moutai.com.cn/mtgf/attachDir/2024/11/2024112812512867790.pdf: 51.98 (偏差 0.00%)
+  ✅ 通过 [43] 每股股息 · 过去12个月实际派发 · 股息率              报告:         3.73 %
+                                                    https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11694571&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12402962&stockid=600519 ; https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://www.moutai.com.cn/mtgf/attachDir/2024/11/2024112812512867790.pdf: 3.73 (偏差 0.00%)
+  ✅ 通过 [44] 每股股息 · 盈利不变、按75%派息测算 · 每股股息          报告:        49.29 元
+                                                    https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11694571&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12402962&stockid=600519 ; https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://www.moutai.com.cn/mtgf/attachDir/2024/11/2024112812512867790.pdf: 49.29 (偏差 0.00%)
+  ✅ 通过 [45] 每股股息 · 盈利不变、按75%派息测算 · 股息率           报告:         3.54 %
+                                                    https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11694571&stockid=600519 ; https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12402962&stockid=600519 ; https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12685262&stockid=600519 ; https://www.moutai.com.cn/mtgf/attachDir/2024/11/2024112812512867790.pdf: 3.54 (偏差 0.00%)
+
+----------------------------------------------------------------------
+  抽检总数: 45  |  通过: 45  |  警告: 0  |  不通过: 0
+
+【准出】所有抽检数据通过，报告可发布。
+======================================================================

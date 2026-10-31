@@ -1,0 +1,31 @@
+{
+  "checked_at": "2026-10-31 Asia/Shanghai",
+  "price_date": "2026-10-30",
+  "price_cny": "1392.05",
+  "basis": "Gross cash dividends before investor-level tax, actually paid in the trailing twelve months; no buybacks included.",
+  "payouts": [
+    {
+      "period": "2025 interim",
+      "paid_on": "2025-12-19",
+      "per_share_cny": "23.957",
+      "primary_url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11694571&stockid=600519",
+      "secondary_url": "https://www.cls.cn/detail/2225622",
+      "secondary_per_share_cny": "23.957"
+    },
+    {
+      "period": "2025 final",
+      "paid_on": "2026-06-26",
+      "per_share_cny": "28.02423",
+      "primary_url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12402962&stockid=600519",
+      "secondary_url": "https://www.nbd.com.cn/articles/2026-06-02/4415641.html",
+      "secondary_per_share_cny": "28.02423"
+    }
+  ],
+  "quote_cross_check": {
+    "provider": "Futu",
+    "url": "https://www.futunn.com/stock/600519-SH/announcement",
+    "access": "Search-index snapshot of quote page at the stated market close; direct text-only page requires JavaScript.",
+    "dividend_per_share_ttm_cny": "51.98",
+    "dividend_yield_ttm_percent": "3.73"
+  }
+}
