@@ -22,7 +22,7 @@
 
 > 📖 **想读报告，用 [阅读站](https://xbtlin.github.io/ai-berkshire/)**：成品报告按公司、专题、时间整理，电脑和手机都好读，可搜索、记住阅读进度。
 >
-> 📊 全部 2294 份报告（含底稿）· 114 家公司 · 29 个专题，GitHub 上的完整目录见 [研究报告索引](reports/README.md)，更新至 2026-11-21。
+> 📊 全部 2296 份报告（含底稿）· 114 家公司 · 29 个专题，GitHub 上的完整目录见 [研究报告索引](reports/README.md)，更新至 2026-11-22。
 
 <!-- REPORTS-BANNER:END -->
 
@@ -195,6 +195,7 @@ AI Berkshire 确保：**同样的输入 → 结构一致、深度一致的输出
 | Skill | 用途 | 适合场景 |
 |-------|------|---------|
 | [`/investment-research`](skills/investment-research.md) | 四大师综合深度分析 | 对一家上市公司进行全方位投资研究 |
+| [`/investment-research-lite`](skills/investment-research-lite.md) | 四大师综合深度分析（精简版） | 流程同上、规则合并，token 约为原版一半 |
 | [`/company-valuation`](skills/company-valuation.md) | 公司内在价值与估值复核 | 腾讯等重点公司及美股七姐妹：现金流、SOTP、反向估值与可复算验证 |
 | [`/investment-team`](skills/investment-team.md) | 多Agent并行投研团队 | 4个Agent并行研究，最快速、最全面 |
 | [`/management-deep-dive`](skills/management-deep-dive.md) | 管理层纵深研究 | "买股票就是买人"——当管理层是核心变量时深挖 |
@@ -668,18 +669,18 @@ REM 可选：安装 Codex slash prompts
 
 <!-- REPORTS-INDEX:START 由 tools/reports_index.py 自动更新，勿手改 -->
 
-**📊 [全部研究索引 →](reports/README.md)** ｜ 2294 份报告 · 114 家公司 · 29 个专题 · 更新至 2026-11-21
+**📊 [全部研究索引 →](reports/README.md)** ｜ 2296 份报告 · 114 家公司 · 29 个专题 · 更新至 2026-11-22
 
 最近更新：
 
 | 日期 | 报告 | 归属 |
 |------|------|------|
+| 2026-11-22 | [英伟达投资研究：利润在顶点，创始人离场，账本还没交](reports/英伟达/英伟达-research-20261122.md) | 英伟达 |
 | 2026-11-21 | [英伟达十年后最差情景：路径、利润与检验指标](reports/英伟达/英伟达十年最差情景-20261121.md) | 英伟达 |
-| 2026-11-21 | [巴菲特买入前 Checklist：英伟达（NVDA）](reports/英伟达/巴菲特Checklist-英伟达-20261121.md) | 英伟达 |
 | 2026-11-21 | [MiniMax 十年后最差情景：资本链、单位经济、应用层三条链同时走坏](reports/MINIMAX/MiniMax十年最差情景-20261121.md) | MiniMax |
 | 2026-11-20 | [拼多多2026Q3财报精读：利润超预期来自降费，收入零增长才是核心问题](reports/拼多多/拼多多-earnings-2026Q3-精读-20261120.md) | 拼多多 |
 | 2026-11-20 | [MiniMax 投资研究：102.40 港元买入，十年后需要赚多少钱？](reports/MINIMAX/MiniMax研究报告-20261120.md) | MiniMax |
-| 2026-11-18 | [腾讯三季报：AI投入正在改写股东回报](reports/腾讯/腾讯-公众号-20261118.md) | 腾讯 |
+| 2026-11-19 | [快手2026Q3财报精读：广告和电商同步收缩，利润几乎归零，自由现金流仍为负](reports/快手/快手-earnings-2026Q3.md) | 快手 |
 
 <!-- REPORTS-INDEX:END -->
 
